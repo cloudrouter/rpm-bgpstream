@@ -3,14 +3,23 @@
 Summary: BGPStream
 Name: bgpstream
 Version: 1.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System/Libraries
 Prefix: /usr
 Source0: http://www.caida.org/~chiara/bgpstream-doc/bgpstream-1.0.0.tar.gz
 URL: http://www.caida.org/~chiara/bgpstream-doc/bgpstream/index.html
-BuildRequires: mariadb-devel sqlite-devel libtrace-devel
-Requires: libtrace mariadb mariadb-libs sqlite
+
+BuildRequires: mariadb-devel
+BuildRequires: sqlite-devel
+BuildRequires: libtrace-devel
+BuildRequires: gcc
+BuildRequires: make
+
+Requires: libtrace
+Requires: mariadb
+Requires: mariadb-libs
+Requires: sqlite
 
 %description
 BGP Stream, a software framework for the historical analysis and real-time 
@@ -37,6 +46,11 @@ Helper utilities for use with the BGPStream library.
 
 %build
 ./configure --prefix %{_prefix} --libdir=%{_libdir} CPPFLAGS='-I/usr/include/mysql' LDFLAGS='-L/usr/lib64/mysql'
+
+# https://fedoraproject.org/wiki/RPath_Packaging_Draft
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
 make %{?_smp_mflags}
 
 %install
@@ -64,6 +78,9 @@ rm -rf %{buildroot}
 %{_bindir}/*
 
 %changelog
+* Thu Dec 24 2015 John Siegrist <john@complects.com> - 1.0.0-2
+- Update Package build dependencies and fixed RPath build error.
+
 * Tue Jun 02 2015 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 1.0.0-1
 - Initial specfile
 
