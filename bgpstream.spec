@@ -3,11 +3,11 @@
 Summary: BGPStream
 Name: bgpstream
 Version: 1.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Group: System/Libraries
 Prefix: /usr
-Source0: http://www.caida.org/~chiara/bgpstream-doc/bgpstream-1.0.0.tar.gz
+Source0: https://github.com/CAIDA/bgpstream/releases/download/v1.0.0/bgpstream-1.0.0.tar.gz
 URL: http://www.caida.org/~chiara/bgpstream-doc/bgpstream/index.html
 
 BuildRequires: mariadb-devel
@@ -78,6 +78,9 @@ rm -rf %{buildroot}
 %{_bindir}/*
 
 %changelog
+* Tue Mar 29 2016 John Siegrist <john@complects.com> - 1.0.0-3
+- Update sources URL to retrieve from Github.
+
 * Thu Dec 24 2015 John Siegrist <john@complects.com> - 1.0.0-2
 - Update Package build dependencies and fixed RPath build error.
 
