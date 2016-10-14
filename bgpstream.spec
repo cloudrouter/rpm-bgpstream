@@ -1,22 +1,27 @@
 %global _hardened_build 1
 
-Summary: BGPStream
+Summary: BGPStream Core package provides BGPReader tool and libBGPStream library
 Name: bgpstream
-Version: 1.0.0
-Release: 3%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 License: GPLv2+
-Group: System/Libraries
+Group: Applications/Internet
 Prefix: /usr
-Source0: https://github.com/CAIDA/bgpstream/releases/download/v1.0.0/bgpstream-1.0.0.tar.gz
-URL: http://www.caida.org/~chiara/bgpstream-doc/bgpstream/index.html
+Source0: https://github.com/CAIDA/bgpstream/releases/download/v1.1.0/bgpstream-1.1.0.tar.gz
+URL: https://bgpstream.caida.org/
 
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: libcurl-devel
+BuildRequires: libtrace-devel
+BuildRequires: libwandio-devel
+BuildRequires: make
 BuildRequires: mariadb-devel
 BuildRequires: sqlite-devel
-BuildRequires: libtrace-devel
-BuildRequires: gcc
-BuildRequires: make
 
 Requires: libtrace
+Requires: libwandio
 Requires: mariadb
 Requires: mariadb-libs
 Requires: sqlite
@@ -26,8 +31,8 @@ BGP Stream, a software framework for the historical analysis and real-time
 monitoring of BGP data.
 
 %package devel
-Summary: BGPStream development headers
-Group: System/Libraries
+Summary: Development files for BGPStream API
+Group: Development/Libraries
 Provides: %{name}-devel
 
 %description devel
@@ -78,6 +83,10 @@ rm -rf %{buildroot}
 %{_bindir}/*
 
 %changelog
+* Fri Oct 14 2016 John Siegrist <john@complects.com> - 1.1.0-1
+- Update package version to 1.1.0.
+- Merged in changes from alternate spec file by Clinton Work <clinton@scripty.com>.
+
 * Tue Mar 29 2016 John Siegrist <john@complects.com> - 1.0.0-3
 - Update sources URL to retrieve from Github.
 

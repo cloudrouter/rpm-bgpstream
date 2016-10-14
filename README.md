@@ -1,2 +1,2 @@
-# cloudrouter-component-bgpstream
-CloudRouter Component: BGPStream
+# rpm-bgpstream
+CloudRouter RPM Package: BGPStream
